@@ -6,7 +6,7 @@
 // key supplies it implicitly through response.locals; an organization-wide key
 // or a browser session must send it. On update, when the caller passed no
 // --clinicId, reuse the clinicId of the existing record (costs one extra read).
-module.exports = async function resolveClinicId(options, body, getExisting) {
+export default async function resolveClinicId(options, body, getExisting) {
   let clinicId = options.clinicId || body.clinicId
 
   if (!clinicId) {

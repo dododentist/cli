@@ -1,15 +1,13 @@
 /* Copyright 2025 DodoDentist LLC */
-const commander = require('commander')
-const {
-  printJson,
-  withJson,
-  fail,
-} = require('@monorepool/agentfirst/output.js')
-const buildQuery = require('./buildQuery.js')
-const parseBody = require('./parseBody.js')
-const api = require('./request.js')
-const resolveClinicId = require('./resolveClinicId.js')
-const { dim, bold, cyan } = require('./formatOutput.js')
+
+import { fail, printJson, withJson } from '@monorepool/agentfirst/output.js'
+import * as commander from 'commander'
+
+import buildQuery from './buildQuery.js'
+import { bold, cyan, dim } from './formatOutput.js'
+import parseBody from './parseBody.js'
+import api from './request.js'
+import resolveClinicId from './resolveClinicId.js'
 
 function appointmentsCommand() {
   const command = new commander.Command('appointments')
@@ -168,7 +166,10 @@ function appointmentsCommand() {
         'REQUESTED, SCHEDULED, PATIENT_ARRIVED, NO_SHOW or CANCELED (default SCHEDULED)',
       )
       .option('--note <note>', 'free-text note')
-      .option('--body <json>', 'extra JSON fields merged into the request body'),
+      .option(
+        '--body <json>',
+        'extra JSON fields merged into the request body',
+      ),
   ).action(async options => {
     try {
       const body = options.body ? parseBody(options.body) : {}
@@ -209,7 +210,10 @@ function appointmentsCommand() {
       .option('--patientId <patientId>', 'patient the appointment is for')
       .option('--note <note>', 'free-text note')
       .option('--clinicId <clinicId>', 'clinic the appointment belongs to')
-      .option('--body <json>', 'extra JSON fields merged into the request body'),
+      .option(
+        '--body <json>',
+        'extra JSON fields merged into the request body',
+      ),
   ).action(async (appointmentId, options) => {
     try {
       const body = options.body ? parseBody(options.body) : {}
@@ -272,4 +276,4 @@ function appointmentsCommand() {
   return command
 }
 
-module.exports = appointmentsCommand
+export default appointmentsCommand

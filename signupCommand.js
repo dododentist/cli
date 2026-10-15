@@ -1,8 +1,9 @@
 /* Copyright 2025 DodoDentist LLC */
-const signupCommand = require('@monorepool/agentfirst/signupCommand.js')
-const getApiUrl = require('./getApiUrl.js')
-const session = require('./session.js')
-const { binaryName, appUrl } = require('./constants.js')
+import signupCommand from '@monorepool/agentfirst/signupCommand.js'
+
+import { appUrl, binaryName } from './constants.js'
+import getApiUrl from './getApiUrl.js'
+import session from './session.js'
 
 // The step that used to need a person. `login` assumes the account already
 // exists; an agent pointed at dododentist.com for the first time has nothing
@@ -15,5 +16,4 @@ const { binaryName, appUrl } = require('./constants.js')
 // also seeds the organization's first clinic — then stores the session in the
 // same ~/.dododentist/ the browser login writes, so every other command works
 // immediately afterwards.
-module.exports = () =>
-  signupCommand({ binaryName, getApiUrl, appUrl, session })
+export default () => signupCommand({ binaryName, getApiUrl, appUrl, session })

@@ -1,15 +1,13 @@
 /* Copyright 2025 DodoDentist LLC */
-const commander = require('commander')
-const {
-  printJson,
-  withJson,
-  fail,
-} = require('@monorepool/agentfirst/output.js')
-const buildQuery = require('./buildQuery.js')
-const parseBody = require('./parseBody.js')
-const api = require('./request.js')
-const resolveClinicId = require('./resolveClinicId.js')
-const { dim, bold, cyan } = require('./formatOutput.js')
+
+import { fail, printJson, withJson } from '@monorepool/agentfirst/output.js'
+import * as commander from 'commander'
+
+import buildQuery from './buildQuery.js'
+import { bold, cyan, dim } from './formatOutput.js'
+import parseBody from './parseBody.js'
+import api from './request.js'
+import resolveClinicId from './resolveClinicId.js'
 
 // An invoice carries its value in `lines` (the canonical shape) or the legacy
 // embedded `procedures`, neither of which is a flat scalar — so both are set
@@ -273,4 +271,4 @@ function invoicesCommand() {
   return command
 }
 
-module.exports = invoicesCommand
+export default invoicesCommand

@@ -35,11 +35,12 @@ email address suggests.
 
 ## Log in
 
-Two ways in, both stored in `~/.dododentist/`:
+Three ways in, all stored in `~/.dododentist/`:
 
 ```bash
-dododentist login               # interactive: choose browser or API key
+dododentist login               # interactive: choose browser, another device or API key
 dododentist login --browser     # opens app.dododentist.com to authorize
+dododentist login --device      # approve from a phone or another computer
 dododentist login --with-key    # masked prompt for an API key secret
 dododentist logout              # clears the stored session and any stored key
 ```
@@ -48,6 +49,13 @@ dododentist logout              # clears the stored session and any stored key
 long-lived secret. Create keys in the DodoDentist web app: they belong to your
 organization, can be locked to a single clinic, and start with read-only
 scopes that an administrator widens explicitly.
+
+**Another device** (`dododentist login --device`) is for a terminal whose
+browser you cannot use: a remote desktop without copy and paste, an SSH session,
+a server. It prints a link, a QR code and a one-time code: open the link on your
+phone or on any computer where you are signed in to DodoDentist, check that the
+code matches and approve. The terminal then stores a session of its own, as
+`--browser` does. The code works once and expires after ten minutes.
 
 The key secret is never accepted as a command argument — argv lands in shell
 history and in every `ps` listing. Prompt or environment variable only.
@@ -227,10 +235,10 @@ the moment the integration is retired.
 
 ## Environment variables
 
-| Variable               | Purpose                                                          |
-| ---------------------- | ---------------------------------------------------------------- |
-| `DODODENTIST_API_KEY`  | API key secret used when no login is stored                       |
-| `DODODENTIST_API_URL`  | Override the API endpoint (only for non-production deployments)    |
+| Variable              | Purpose                                                         |
+| --------------------- | --------------------------------------------------------------- |
+| `DODODENTIST_API_KEY` | API key secret used when no login is stored                     |
+| `DODODENTIST_API_URL` | Override the API endpoint (only for non-production deployments) |
 
 ## License
 

@@ -1,15 +1,13 @@
 /* Copyright 2025 DodoDentist LLC */
-const commander = require('commander')
-const {
-  printJson,
-  withJson,
-  fail,
-} = require('@monorepool/agentfirst/output.js')
-const api = require('./request.js')
-const { dim, bold, cyan } = require('./formatOutput.js')
+
+import { fail, printJson, withJson } from '@monorepool/agentfirst/output.js'
+import * as commander from 'commander'
+
+import { bold, cyan, dim } from './formatOutput.js'
+import api from './request.js'
 
 // Clinics are read-only over the public API: `clinics:read` is the only clinic
-// scope dododentist/api/handlers/scopes.js defines, and the create/update/
+// scope dododentist/api/handlers/scopes.ts defines, and the create/update/
 // delete routes are operator-session only. There is deliberately no
 // `clinics add`.
 function clinicsCommand() {
@@ -21,7 +19,9 @@ function clinicsCommand() {
   withJson(
     command
       .command('list')
-      .description('list the clinics your credential can reach (GET /api/clinics)'),
+      .description(
+        'list the clinics your credential can reach (GET /api/clinics)',
+      ),
   ).action(async options => {
     try {
       const clinics = await api.get('/api/clinics')
@@ -84,13 +84,27 @@ function clinicsCommand() {
       console.log(bold(clinic.name || clinic._id))
       console.log(dim(clinic._id))
       console.log()
-      if (clinic.email) console.log(`${cyan('email')}  ${clinic.email}`)
-      if (clinic.phone) console.log(`${cyan('phone')}  ${clinic.phone}`)
-      if (clinic.address) console.log(`${cyan('address')}  ${clinic.address}`)
-      if (clinic.city) console.log(`${cyan('city')}  ${clinic.city}`)
-      if (clinic.country) console.log(`${cyan('country')}  ${clinic.country}`)
-      if (clinic.currency) console.log(`${cyan('currency')}  ${clinic.currency}`)
-      if (clinic.timezone) console.log(`${cyan('timezone')}  ${clinic.timezone}`)
+      if (clinic.email) {
+        console.log(`${cyan('email')}  ${clinic.email}`)
+      }
+      if (clinic.phone) {
+        console.log(`${cyan('phone')}  ${clinic.phone}`)
+      }
+      if (clinic.address) {
+        console.log(`${cyan('address')}  ${clinic.address}`)
+      }
+      if (clinic.city) {
+        console.log(`${cyan('city')}  ${clinic.city}`)
+      }
+      if (clinic.country) {
+        console.log(`${cyan('country')}  ${clinic.country}`)
+      }
+      if (clinic.currency) {
+        console.log(`${cyan('currency')}  ${clinic.currency}`)
+      }
+      if (clinic.timezone) {
+        console.log(`${cyan('timezone')}  ${clinic.timezone}`)
+      }
       if (clinic.creationTime) {
         console.log(`${cyan('created')}  ${clinic.creationTime}`)
       }
@@ -103,4 +117,4 @@ function clinicsCommand() {
   return command
 }
 
-module.exports = clinicsCommand
+export default clinicsCommand

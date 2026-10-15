@@ -1,8 +1,9 @@
 /* Copyright 2025 DodoDentist LLC */
-const createRequest = require('@monorepool/agentfirst/request.js')
-const getApiUrl = require('./getApiUrl.js')
-const session = require('./session.js')
-const { binaryName, envKeyName } = require('./constants.js')
+import createRequest from '@monorepool/agentfirst/request.js'
+
+import { binaryName, envKeyName } from './constants.js'
+import getApiUrl from './getApiUrl.js'
+import session from './session.js'
 
 // Dual-mode transport from @monorepool/agentfirst:
 //
@@ -20,4 +21,4 @@ const { binaryName, envKeyName } = require('./constants.js')
 // session > stored key > environment key. Errors carry `.status` and `.body`,
 // and end with the login hint (naming both `dododentist login` and
 // DODODENTIST_API_KEY) when the caller never authenticated.
-module.exports = createRequest({ getApiUrl, session, envKeyName, binaryName })
+export default createRequest({ getApiUrl, session, envKeyName, binaryName })

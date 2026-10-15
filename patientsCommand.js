@@ -1,15 +1,13 @@
 /* Copyright 2025 DodoDentist LLC */
-const commander = require('commander')
-const {
-  printJson,
-  withJson,
-  fail,
-} = require('@monorepool/agentfirst/output.js')
-const buildQuery = require('./buildQuery.js')
-const parseBody = require('./parseBody.js')
-const api = require('./request.js')
-const resolveClinicId = require('./resolveClinicId.js')
-const { dim, bold, cyan } = require('./formatOutput.js')
+
+import { fail, printJson, withJson } from '@monorepool/agentfirst/output.js'
+import * as commander from 'commander'
+
+import buildQuery from './buildQuery.js'
+import { bold, cyan, dim } from './formatOutput.js'
+import parseBody from './parseBody.js'
+import api from './request.js'
+import resolveClinicId from './resolveClinicId.js'
 
 // Patient records are health data. Every command here reaches the real
 // records of the authenticated organization — keep the scopes of the key
@@ -65,7 +63,9 @@ function patientsCommand() {
 
       console.log(`Found ${patients.length} patient(s):`)
       patients.forEach((patient, index) => {
-        const contact = [patient.email, patient.phone].filter(Boolean).join(' · ')
+        const contact = [patient.email, patient.phone]
+          .filter(Boolean)
+          .join(' · ')
         console.log(
           `${index + 1}. ${patient.name || patient._id}` +
             `${contact ? ` — ${contact}` : ''} (${patient._id})`,
@@ -145,7 +145,10 @@ function patientsCommand() {
       .option('--email <email>', 'patient email')
       .option('--phone <phone>', 'patient phone number')
       .option('--language <language>', 'two-letter language code, e.g. en')
-      .option('--body <json>', 'extra JSON fields merged into the request body'),
+      .option(
+        '--body <json>',
+        'extra JSON fields merged into the request body',
+      ),
   ).action(async options => {
     try {
       const body = options.body ? parseBody(options.body) : {}
@@ -180,7 +183,10 @@ function patientsCommand() {
       .option('--phone <phone>', 'patient phone number')
       .option('--language <language>', 'two-letter language code, e.g. en')
       .option('--clinicId <clinicId>', 'clinic the patient belongs to')
-      .option('--body <json>', 'extra JSON fields merged into the request body'),
+      .option(
+        '--body <json>',
+        'extra JSON fields merged into the request body',
+      ),
   ).action(async (patientId, options) => {
     try {
       const body = options.body ? parseBody(options.body) : {}
@@ -243,4 +249,4 @@ function patientsCommand() {
   return command
 }
 
-module.exports = patientsCommand
+export default patientsCommand

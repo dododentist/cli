@@ -1,16 +1,14 @@
 /* Copyright 2025 DodoDentist LLC */
-const commander = require('commander')
-const {
-  printJson,
-  withJson,
-  fail,
-} = require('@monorepool/agentfirst/output.js')
-const buildQuery = require('./buildQuery.js')
-const api = require('./request.js')
-const { dim, bold, cyan } = require('./formatOutput.js')
+
+import { fail, printJson, withJson } from '@monorepool/agentfirst/output.js'
+import * as commander from 'commander'
+
+import buildQuery from './buildQuery.js'
+import { bold, cyan, dim } from './formatOutput.js'
+import api from './request.js'
 
 // Treatments are read-only over the public API: `treatments:read` is the only
-// treatment scope dododentist/api/handlers/scopes.js defines, and the
+// treatment scope dododentist/api/handlers/scopes.ts defines, and the
 // create/update/delete routes are operator-session only. There is deliberately
 // no `treatments add`.
 function treatmentsCommand() {
@@ -144,4 +142,4 @@ function treatmentsCommand() {
   return command
 }
 
-module.exports = treatmentsCommand
+export default treatmentsCommand

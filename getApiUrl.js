@@ -6,6 +6,6 @@
 // Resolved here rather than through @dododentist/client on purpose: that
 // package pulls in @monorepool/env, whose product roster is internal and has
 // no business inside a published npm bundle.
-module.exports = function getApiUrl() {
+export default function getApiUrl() {
   return process.env.DODODENTIST_API_URL || 'https://api.dododentist.com'
 }
